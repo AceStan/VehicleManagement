@@ -1,6 +1,10 @@
 package com.dao.impl;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -157,7 +161,7 @@ public class CarDaoImpl implements CarDao {
 		Session s = sf.openSession();
 		Car res = new Car();
 		Document pdf = new Document();
-		PdfWriter.getInstance(pdf, new FileOutputStream("/Users/aleksandar.stanoevsk/Desktop/VehicleManagement v.1.1/files/carDocumentation"+new Random().nextInt()+".pdf"));
+		PdfWriter.getInstance(pdf, new FileOutputStream("/Users/aleksandar.stanoevsk/Desktop/VehicleManagement v.1.1/files/carDocumentation.pdf"));
 		try {
 			pdf.open();
 			Criteria c = s.createCriteria(Car.class);
@@ -179,6 +183,28 @@ public class CarDaoImpl implements CarDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void carDocumentationHTML(Car car) throws Exception {
+		Session s = sf.openSession();
+		Car res = new Car();
+		File f = new File ("/Users/aleksandar.stanoevsk/Desktop/VehicleManagement v.1.1/files/carDocHTML.html");
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+			String html = "<header>Vehicle Management - Car Documenatatiton:</header>"
+					+ "<br><br>"
+					+ "<p>Car Brand : "+car.getBrand()+"</p>"
+					+ "<p>Car Model : "+car.getModel()+"</p>"
+					+ "<p>Engine Power : "+car.getEngine()+" horse powers</p>"
+					+ "<p>Average Fuel Consumption : "+car.getFuelCompsumption()+" liters/100kms</p>"
+					+ "<p>LastService : "+car.getLastService()+"</p>";
+			bw.write(html);
+			bw.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	

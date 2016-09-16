@@ -45,6 +45,9 @@ public class CarService {
 	public void carDocumentation(Car car) throws Exception{
 		carDao.carDocumentation(car);
 	}
+	public void carDocumentationHTML(Car car) throws Exception{
+		carDao.carDocumentationHTML(car);
+	}
 	
 
 }

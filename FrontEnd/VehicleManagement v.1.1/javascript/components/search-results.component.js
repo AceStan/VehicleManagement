@@ -33,5 +33,11 @@ angular.module('VehicleManagement')
 
 			})
 		}
+		model.carDocumentationHTML = function(car){
+			console.log(car);
+			$http.post("http://localhost:9090/Test/carDocumentationHTML",car).then(function(response){
+
+			})
+		}
 	}
 })

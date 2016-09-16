@@ -12,5 +12,6 @@ public interface CarDao {
 	public Response<Car> updateTrip(Car car);
 	public ArrayList<Car> searchCars(String content);
 	public void carDocumentation(Car car) throws Exception;
+	public void carDocumentationHTML(Car car) throws Exception;
 	
 }

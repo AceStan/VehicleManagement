@@ -78,6 +78,14 @@ public class CarController {
 		
 
 	}
+	@CrossOrigin(origins = "http://localhost:3000")
+	@RequestMapping(value = "/carDocumentationHTML", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void carDocHTML(@RequestBody Car car) throws Exception {
+		carService.carDocumentationHTML(car);
+		
+
+	}
 	
 
 

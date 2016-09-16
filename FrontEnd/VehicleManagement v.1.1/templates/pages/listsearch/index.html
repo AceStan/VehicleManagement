@@ -24,7 +24,10 @@
     <td>{{car.fuelCompsumption | number:2}}  liters/100km</td>
     <td><button ng-click = $ctrl.getOwner(car.fk)>See the owner</button></td>
     <td  ng-show = "$ctrl.value.user.role === 'admin'"><button ng-click = $ctrl.value.adminDeleteCar(car)>X</button></td>
-    <td><a target = "_blank" href="files/CarDocumentation.pdf"></a><div class = "search-bar"><i class="fa fa-file-pdf-o fa-2x" aria-hidden = "true" ng-click=$ctrl.carDocumentation(car)></i><div></td>
+    <td>
+    <a target = "_blank" href="files/CarDocumentation.pdf"><div class = "search-bar"><i class="fa fa-file-pdf-o fa-2x" aria-hidden = "true" ng-click=$ctrl.carDocumentation(car)></i><div></a>
+    <a target = "_blank" href="files/CarDocHTML.html"><div class = "search-bar"><i class="fa fa-html5 fa-2x" aria-hidden = "true" ng-click=$ctrl.carDocumentationHTML(car)></i><div></a>
+    </td>
   </tr>
 </table>
 </header>
