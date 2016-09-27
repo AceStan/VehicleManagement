@@ -17,8 +17,6 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.config.HibernateUtil;
-import com.config.Response;
 import com.dao.UserDao;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
@@ -27,7 +25,10 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.model.Response;
 import com.model.User;
+import com.util.GetPathUtil;
+import com.util.HibernateUtil;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -145,7 +146,7 @@ public class UserDaoImpl implements UserDao {
 		return owner;
 	}
 
-	
+	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<User> getAllusers() {
 		ArrayList<User> res = new ArrayList<>();
@@ -158,7 +159,7 @@ public class UserDaoImpl implements UserDao {
 			e.printStackTrace();
 		}
 		System.out.println("ALL USERS : ");
-		for(int i =0;i<res.size();i++)
+		for (int i = 0; i < res.size(); i++)
 			System.out.println(res.get(i).getSsid());
 		return res;
 	}
@@ -202,8 +203,8 @@ public class UserDaoImpl implements UserDao {
 		PdfPTable table = new PdfPTable(8);
 		PdfPCell cell;
 		Document pdf = new Document();
-		PdfWriter.getInstance(pdf, new FileOutputStream(
-				"/Users/aleksandar.stanoevsk/Desktop/VehicleManagement v.1.1/files/AllUsersPdf.pdf"));
+		String path = new GetPathUtil().getPath();
+		PdfWriter.getInstance(pdf, new FileOutputStream(path + "AllUsersPdf.pdf"));
 		pdf.open();
 		Font f = FontFactory.getFont("Arial", 8);
 		final String[] s = { "NAME", "LAST_NAME", "MOBILE", "E-MAIL", "USERNAME", "PASSWORD", "SSID", "ROLE" };
@@ -278,8 +279,8 @@ public class UserDaoImpl implements UserDao {
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		XSSFSheet sheet = workbook.createSheet("Sheet No.1");
 		XSSFRow row;
-		FileOutputStream xlsx = new FileOutputStream(
-				"/Users/aleksandar.stanoevsk/Desktop/VehicleManagement v.1.1/files/AllUsersXlsx.xlsx");
+		String path = new GetPathUtil().getPath();
+		FileOutputStream xlsx = new FileOutputStream(path + "AllUsersXlsx.xlsx");
 		Map<String, Object[]> userInfo = new TreeMap<String, Object[]>();
 		try {
 			Criteria c = session.createCriteria(User.class);
@@ -292,7 +293,7 @@ public class UserDaoImpl implements UserDao {
 				userInfo.put(String.valueOf(i),
 						new Object[] { users.get(k).getName(), users.get(k).getLastName(), users.get(k).getMobile(),
 								users.get(k).getEmail(), users.get(k).getUsername(), users.get(k).getPassword(),
-								users.get(k).getSsid(),users.get(k).getRole() });
+								users.get(k).getSsid(), users.get(k).getRole() });
 
 			}
 			Set<String> keySet = userInfo.keySet();
@@ -325,75 +326,77 @@ public class UserDaoImpl implements UserDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void OwnersPdf() throws Exception {
-		
+
 		ArrayList<User> users = new ArrayList<>();
 		Session session = sf.openSession();
 		PdfPCell cell;
 		PdfPTable table = new PdfPTable(5);
 		Document pdf = new Document();
-		PdfWriter.getInstance(pdf, new FileOutputStream(
-				"/Users/aleksandar.stanoevsk/Desktop/VehicleManagement v.1.1/files/OwnersPdf.pdf"));
+		String path = new GetPathUtil().getPath();
+		PdfWriter.getInstance(pdf, new FileOutputStream(path + "OwnersPdf.pdf"));
 		pdf.open();
 		Font f = FontFactory.getFont("Arial", 8);
-		final String[] s = {"CAR_BRAND","CAR_MODEL","OWNER","CONTACT-MOBILE","CONTACT-EMAIL"};
+		final String[] s = { "CAR_BRAND", "CAR_MODEL", "OWNER", "CONTACT-MOBILE", "CONTACT-EMAIL" };
 		try {
 			Criteria c = session.createCriteria(User.class);
 			c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			users = (ArrayList<User>) c.list();
-			
+
 			for (int i = 0; i < users.size() + 1; i++) {
 				if (i == 0) {
 					for (int k = 0; k < s.length; k++) {
 						cell = new PdfPCell(new Phrase(s[k], f));
 						table.addCell(cell);
-					} // headers of cells 
+					} // headers of cells
 				} else {
-					if(!users.get(i-1).getCars().isEmpty()){ // If a user doesn't own any car don't put it in the table
-					for(int j = 0; j<users.get(i-1).getCars().size();j++){
-						for(int q = 0;q<5;q++){
-							switch(q){
-							case 0:
-								cell = new PdfPCell(new Phrase(users.get(i - 1).getCars().get(j).getBrand(), f));
-								table.addCell(cell);
-								break;
-							case 1:
-								cell = new PdfPCell(new Phrase(users.get(i - 1).getCars().get(j).getModel(), f));
-								table.addCell(cell);
-								break;
-							case 2:
-								cell = new PdfPCell(new Phrase(users.get(i - 1).getName()+" "+users.get(i-1).getLastName(), f));
-								table.addCell(cell);
-								break;
-							case 3:
-								cell = new PdfPCell(new Phrase(users.get(i - 1).getMobile(), f));
-								table.addCell(cell);
-								break;
-							case 4:
-								cell = new PdfPCell(new Phrase(users.get(i - 1).getEmail(), f));
-								table.addCell(cell);
-								break;
-							default:
-								break;
+					if (!users.get(i - 1).getCars().isEmpty()) { // If a user
+																	// doesn't
+																	// own any
+																	// car don't
+																	// put it in
+																	// the table
+						for (int j = 0; j < users.get(i - 1).getCars().size(); j++) {
+							for (int q = 0; q < 5; q++) {
+								switch (q) {
+								case 0:
+									cell = new PdfPCell(new Phrase(users.get(i - 1).getCars().get(j).getBrand(), f));
+									table.addCell(cell);
+									break;
+								case 1:
+									cell = new PdfPCell(new Phrase(users.get(i - 1).getCars().get(j).getModel(), f));
+									table.addCell(cell);
+									break;
+								case 2:
+									cell = new PdfPCell(new Phrase(
+											users.get(i - 1).getName() + " " + users.get(i - 1).getLastName(), f));
+									table.addCell(cell);
+									break;
+								case 3:
+									cell = new PdfPCell(new Phrase(users.get(i - 1).getMobile(), f));
+									table.addCell(cell);
+									break;
+								case 4:
+									cell = new PdfPCell(new Phrase(users.get(i - 1).getEmail(), f));
+									table.addCell(cell);
+									break;
+								default:
+									break;
+								}
 							}
 						}
 					}
-					}
-				
-				
+
 				}
-				
-				}
+
+			}
 			table.setWidthPercentage(100);
 			pdf.add(table);
 			pdf.close();
 			session.close();
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
 
-	
 }

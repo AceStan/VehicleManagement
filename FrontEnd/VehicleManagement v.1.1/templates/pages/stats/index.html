@@ -1,12 +1,12 @@
    <div>
             <table>
                 <tr>
-                    <th>Id number</th>
-                    <th>Car Type</th>
-                    <th>Car Model</th>
-                    <th>Service required</th>
+                    <th>{{$ctrl.value.carsStrings.id}}</th>
+                    <th>{{$ctrl.value.carsStrings.brand}}</th>
+                    <th>{{$ctrl.value.carsStrings.model}}</th>
+                    <th>{{$ctrl.value.carsStrings.service}}</th>
                 </tr>
-                <tr ng-repeat="car in $ctrl.value track by car.id">
+                <tr ng-repeat="car in $ctrl.value.user.cars track by car.id">
                     <td>{{car.id}}</td>
                     <td>{{car.brand}}</td>
                     <td>{{car.model}}</td>

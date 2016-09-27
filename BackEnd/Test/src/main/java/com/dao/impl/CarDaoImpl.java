@@ -1,12 +1,10 @@
 package com.dao.impl;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.Random;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -15,8 +13,6 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.config.HibernateUtil;
-import com.config.Response;
 import com.dao.CarDao;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
@@ -24,6 +20,10 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.model.Car;
+import com.model.Response;
+import com.util.GetPathUtil;
+import com.util.HibernateUtil;
+
 
 @Repository
 public class CarDaoImpl implements CarDao {
@@ -159,16 +159,14 @@ public class CarDaoImpl implements CarDao {
 	public void carDocumentation(Car car) throws Exception {
 		
 		Session s = sf.openSession();
-		Car res = new Car();
 		Document pdf = new Document();
-		PdfWriter.getInstance(pdf, new FileOutputStream("/Users/aleksandar.stanoevsk/Desktop/VehicleManagement v.1.1/files/carDocumentation.pdf"));
+		String path = new GetPathUtil().getPath();
+		PdfWriter.getInstance(pdf, new FileOutputStream(path+"carDocumentation.pdf"));
+		System.out.println("TEST STARTS HERE ! ");
+		System.out.println("Path : " + path);
 		try {
 			pdf.open();
-			Criteria c = s.createCriteria(Car.class);
-			c.add(Restrictions.eq("id",car.getId()));
-			res = (Car)c.uniqueResult();
 			Font f = FontFactory.getFont("Arial",8);
-			Font tile = FontFactory.getFont("Tahoma",12);
 			Paragraph title =  new Paragraph("Vehicle Management - Car documentatiton \n \n \n");
 			title.setAlignment(5);
 			pdf.add(title);
@@ -187,9 +185,18 @@ public class CarDaoImpl implements CarDao {
 
 	@Override
 	public void carDocumentationHTML(Car car) throws Exception {
-		Session s = sf.openSession();
-		Car res = new Car();
-		File f = new File ("/Users/aleksandar.stanoevsk/Desktop/VehicleManagement v.1.1/files/carDocHTML.html");
+		
+		
+		//TODO:Create .properties file to hold all the relevant configuration stuff. Example reports path, 
+		
+		//Create config-app.properties 
+		//You should read the config file when the app is initialized, set all the needed values
+		//All this values will be available through the life of the app.
+		//Create something like InitController.java , 
+		
+		
+		String path = new GetPathUtil().getPath();
+		File f = new File (path+"carDocHTML.html");
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
 			String html = "<header>Vehicle Management - Car Documenatatiton:</header>"

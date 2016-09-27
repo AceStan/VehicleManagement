@@ -2,8 +2,8 @@ package com.dao;
 
 import java.util.ArrayList;
 
-import com.config.Response;
 import com.model.Car;
+import com.model.Response;
 
 public interface CarDao {
 	public Response<Car> addCar(Car car);

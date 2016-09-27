@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.config.Response;
 import com.model.Car;
+import com.model.Response;
 import com.services.CarService;
 
 @Controller
@@ -19,7 +19,6 @@ public class CarController {
 
 	@Autowired
 	private CarService carService;
-
 	@CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping(value = "/addCar", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody

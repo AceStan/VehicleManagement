@@ -2,16 +2,16 @@
 </br>
 <table>
   <tr>
-    <th>SSID</th>
-    <th>Name</th>
-    <th>Last Name</th>
-    <th>Username</th>
-    <th>Password</th>
-    <th>Mobile</th>
-    <th>Email</th>
-    <th>Role</th>
-    <th>Delete </br> User</th>
-    <th>Make this </br> user admin</th>
+    <th>{{$ctrl.value.signUpStrings.ssid}}</th>
+    <th>{{$ctrl.value.signUpStrings.name}}</th>
+    <th>{{$ctrl.value.signUpStrings.lastName}}</th>
+    <th>{{$ctrl.value.signInStrings.username}}</th>
+    <th>{{$ctrl.value.signInStrings.password}}</th>
+    <th>{{$ctrl.value.signUpStrings.mobile}}</th>
+    <th>{{$ctrl.value.signUpStrings.email}}</th>
+    <th>{{$ctrl.value.userProfileStrings.ssid}}</th>
+    <th>{{$ctrl.value.otherStrings.deleteUser}}</th>
+    <th>{{$ctrl.value.otherStrings.makeAdmin}}</th>
   </tr>
   <tr ng-repeat="user in $ctrl.users">
       <td>{{user.ssid}}</td>
@@ -29,7 +29,7 @@
   <container>
       <br/>
       <div>
-        <p class="myText">User Report :</p>
+        <p class="myText">{{$ctrl.value.otherStrings.report}} :</p>
       <div>
       <div class="search-bar">
       <div>

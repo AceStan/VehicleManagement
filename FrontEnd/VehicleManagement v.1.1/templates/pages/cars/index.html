@@ -2,17 +2,16 @@
 </br>
 <table>
   <tr>
-    <th>Id number</th>
-    <th>Car Type</th>
-    <th>Car Model</th>
-    <th>Engine</th>
-    <th>Last Service</th>
-    <th>Fuel Consumption</th>
-    <th>Delete car</th>
+    <th>{{$ctrl.value.carsStrings.id}}</th>
+    <th>{{$ctrl.value.carsStrings.brand}}</th>
+    <th>{{$ctrl.value.carsStrings.model}}</th>
+    <th>{{$ctrl.value.carsStrings.engine}}</th>
+    <th>{{$ctrl.value.carsStrings.lastService}}</th>
+    <th>{{$ctrl.value.carsStrings.fuel}}</th>
+    <th>{{$ctrl.value.carsStrings.delete}}</th>
     <th></th>
-    <th>Kilometars
-      <br/> passed today</th>
-    </tr>
+    <th>{{$ctrl.value.carsStrings.km}}
+       </tr>
     <tr ng-repeat="car in $ctrl.value.user.cars track by car.id">
       <td>{{car.id}}</td>
       <td>{{car.brand}}</td>
@@ -24,11 +23,11 @@
         <button data="{{car}}" ng-click=$ctrl.value.deleteCar(car)>X</button>
       </td>
       <td>
-        <button data="{{car}}" ng-click=$ctrl.value.editCar(car)>Edit Car</button>
+        <button data="{{car}}" ng-click=$ctrl.value.editCar(car)>{{$ctrl.value.carsStrings.edit}}</button>
       </td>
       <td>
-        <input type="text" size="10" ng-model=car.km> Kilometars
-        <button ng-click=$ctrl.value.addTrip(car)>Add </button>
+        <input type="text" size="10" style = "width:60px" ng-model=car.km> {{$ctrl.value.carsStrings.kms}}
+        <button  ng-click=$ctrl.value.addTrip(car)>{{$ctrl.value.carsStrings.add}}</button>
       </td>
     </tr>
   </table>

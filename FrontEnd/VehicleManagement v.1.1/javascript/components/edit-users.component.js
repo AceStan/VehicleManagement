@@ -2,13 +2,14 @@ angular.module('VehicleManagement')
 .component("editUsers",{
 
 	templateUrl : "/templates/pages/users/index.html",
-	bindigs:{
+	bindings:{
 		value: "<"
 	},
 	controller:["$http", function($http){
 		var model = this ;
 		var users = [];
 
+		
 		model.$onInit = function(){
 			$http.post("http://localhost:9090/Test/getAllUsers").then(function(response){
 			model.users = response.data;
@@ -23,7 +24,7 @@ angular.module('VehicleManagement')
 			$http.post("http://localhost:9090/Test/OwnersPdf").then(function(response){
 			console.log("OwnersPdf Generated !")
 			})
-
+			console.log(model.value);
 
 		}
 		

@@ -9,11 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
-import com.config.HibernateUtil;
-import com.config.Response;
-
 import com.dao.UserDao;
+import com.model.Response;
 import com.model.User;
+import com.util.HibernateUtil;
 
 
 @Service

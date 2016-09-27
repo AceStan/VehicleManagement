@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.config.Response;
+import com.model.Response;
 import com.model.SignedInUser;
 import com.model.User;
 import com.services.UserService;

@@ -2,7 +2,7 @@ package com.dao;
 
 import java.util.ArrayList;
 
-import com.config.Response;
+import com.model.Response;
 import com.model.User;
 
 public interface UserDao {

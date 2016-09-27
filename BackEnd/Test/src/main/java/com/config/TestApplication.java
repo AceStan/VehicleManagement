@@ -7,11 +7,12 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
-@ImportResource("classpath:spring.xml")
+@ImportResource("classpath:config/spring.xml")
 @EnableAutoConfiguration(exclude = {HibernateJpaAutoConfiguration.class})
 public class TestApplication {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(TestApplication.class, args);
 	}
+
 }
