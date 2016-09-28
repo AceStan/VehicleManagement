@@ -1,0 +1,7 @@
+***28.09.2016***
+
+Show messages using jGrowl,
+
+Delot so internacionalizacija e delumno reshen vo back-end ,delumno vo front end, so edinstvena cel da se pokazhe deka moze i taka i taka.
+
+Vo back-end delot se napraveni samo 2 datoteki, po edna za sekoj jazik.

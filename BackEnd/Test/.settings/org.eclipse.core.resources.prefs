@@ -1,10 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
-encoding//src/main/resources/resource_bundles/cars_page/cars_mk_MK.properties=UTF-8
-encoding//src/main/resources/resource_bundles/other_required_strings/other_mk_MK.properties=UTF-8
-encoding//src/main/resources/resource_bundles/sign_in_page/signIn_mk_MK.properties=UTF-8
-encoding//src/main/resources/resource_bundles/sign_up_page/signUp_mk_MK.properties=UTF-8
-encoding//src/main/resources/resource_bundles/user_profile_page/userProfile_mk_MK.properties=UTF-8
+encoding//src/main/resources/resource_bundles/vehicle_management_mk_MK.properties=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8
