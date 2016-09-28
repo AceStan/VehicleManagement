@@ -1,7 +1,7 @@
-var app = angular.module('VehicleManagement',['ngRoute'])
+var app = angular.module('VehicleManagement',['ngRoute','pascalprecht.translate'])
 
 
-app.controller('VehicleManagementController',['searchService','carService','authService','$location','$http',function(searchService,carService,authService,$location,$http){
+app.controller('VehicleManagementController',['searchService','carService','authService','$location','$http','$translate',function(searchService,carService,authService,$location,$http,$translate){
 	
 	var vm = this;
 	this.showWelcome = true;
@@ -121,7 +121,7 @@ app.controller('VehicleManagementController',['searchService','carService','auth
 					vm.macedonian = false;
 					vm.english = true;	
 				}
-			$http(req).then(function(response){
+			$http(req).then(function successCallback(response){
 				console.log(response);
 				
 				// WELCOME PAGE STRINGS
@@ -180,6 +180,24 @@ app.controller('VehicleManagementController',['searchService','carService','auth
 				vm.otherStrings.doc = response.data.signInStrings[44].substring(1,response.data.signInStrings[43].length-1,response.data.signInStrings[44])
 				vm.otherStrings.results = response.data.signInStrings[45].substring(1,response.data.signInStrings[44].length-1,response.data.signInStrings[45])
 														
+			},function errorCallback(response){
+				if(vm.macedonian ===  true){
+					$translate.use('mk');
+				}
+				if(vm.english === true){
+					$translate.use('en');
+				}	
+				$translate(['title','signIn','subtitle','username','password','signUp','select']).then(function(result){
+					vm.signInStrings.title = result.title;
+					vm.signInStrings.signIn = result.signIn;
+					vm.signInStrings.subtitle = result.subtitle;
+					vm.signInStrings.username = result.username;
+					vm.signInStrings.password = result.password;
+					vm.signInStrings.signUp = result.signUp;
+					vm.signInStrings.select = result.select;
+
+
+				})
 			})}
 	this.userProfileStrings = function(){
 		var data;
@@ -201,12 +219,28 @@ app.controller('VehicleManagementController',['searchService','carService','auth
 		authService.signUpFunction(this.user).then(function(resultSU){
 			if(resultSU.status === "failure")
 			{
-				alert("Failed  to sign up ! Reason : The "+resultSU.reason+" is not unique !");
+				$.jGrowl.defaults.animateOpen = {
+									width: 'show'
+								};
+								$.jGrowl.defaults.animateClose = {
+									width: 'hide'
+								};
+
+								$.jGrowl("Failed  to sign up ! Reason : The "+resultSU.reason+" is not unique !");
+				
 			}
 			else
 			{
 
-				alert("Successfull sign up ! Welcome !");
+				$.jGrowl.defaults.animateOpen = {
+									width: 'show'
+								};
+								$.jGrowl.defaults.animateClose = {
+									width: 'hide'
+								};
+
+								$.jGrowl("Successfull sign up, welcome  !");
+				
 				$location.path("/profile");
 			}
 			//console.log(resultSU);
@@ -217,7 +251,17 @@ app.controller('VehicleManagementController',['searchService','carService','auth
 		authService.signInFunction(this.signInUser).then(function(resultSI){
 			if(resultSI.status === "failure")
 			{
-				alert("Failed to sign in ! Reason:  "+resultSI.reason+"is incorect or does not exist");
+
+								$.jGrowl.defaults.animateOpen = {
+									width: 'show'
+								};
+								$.jGrowl.defaults.animateClose = {
+									width: 'hide'
+								};
+
+								$.jGrowl("Failed  to sign in ! Reason : The "+resultSI.reason+" is not unique !");
+				
+				
 			}
 			else
 			{
@@ -322,6 +366,14 @@ app.controller('VehicleManagementController',['searchService','carService','auth
 				vm.showCars = true;
 				vm.showAddCar = false;
 				$location.path("/profile");
+				$.jGrowl.defaults.animateOpen = {
+					width: 'show'
+				};
+				$.jGrowl.defaults.animateClose = {
+					width: 'hide'
+				};
+
+				$.jGrowl("Successfully added car!");
 				vm.carToAdd = {
 								id : "",
 								brand : "Opel",
@@ -333,7 +385,15 @@ app.controller('VehicleManagementController',['searchService','carService','auth
 			}
 			else
 			{
-				alert("Failed to add car ! Reason : The car whit this id is already added !")
+				
+				$.jGrowl.defaults.animateOpen = {
+					width: 'show'
+				};
+				$.jGrowl.defaults.animateClose = {
+					width: 'hide'
+				};
+
+				$.jGrowl("Failed to add car!");
 			}
 
 		})}
@@ -385,10 +445,27 @@ app.controller('VehicleManagementController',['searchService','carService','auth
 								fk:  vm.user.ssid
 							}
 							this.showCars = true;
+
 							$location.path("/profile");
+							$.jGrowl.defaults.animateOpen = {
+								width: 'show'
+							};
+							$.jGrowl.defaults.animateClose = {
+								width: 'hide'
+							};
+
+							$.jGrowl("Successfull update!");
+
 						}
 						else{
-							alert("Unsccessfull update!");
+							$.jGrowl.defaults.animateOpen = {
+								width: 'show'
+							};
+							$.jGrowl.defaults.animateClose = {
+								width: 'hide'
+							};
+
+							$.jGrowl("Unsccessfull update");
 						}
 					},
 					function(error){
@@ -417,10 +494,25 @@ app.controller('VehicleManagementController',['searchService','carService','auth
 								console.log(response.data);
 								vm.user.cars.splice(vm.searchResult.indexOf(car),1);
 								vm.showResults = false;
+								$.jGrowl.defaults.animateOpen = {
+									width: 'show'
+								};
+								$.jGrowl.defaults.animateClose = {
+									width: 'hide'
+								};
+
+								$.jGrowl("Successfull delete!");
 								$location.path("/profile");
 							}
 							else{
-								alert("Unsccessfull delete !");
+								$.jGrowl.defaults.animateOpen = {
+									width: 'show'
+								};
+								$.jGrowl.defaults.animateClose = {
+									width: 'hide'
+								};
+
+								$.jGrowl("Unsccessfull delete!");
 							}
 						},
 						function(error){
@@ -433,10 +525,7 @@ app.config(function($routeProvider) {
 	{
 		templateUrl: 'templates/pages/signup/index.html'
 	})
-	/*.when('/signin',
-	{
-		templateUrl: 'templates/pages/signin/index.html'
-	})*/
+	
 .when('/profile',
 {
 	templateUrl: 'templates/pages/userprofile/index.html'
@@ -460,3 +549,26 @@ app.config(function($routeProvider) {
 .otherwise({redirectTo : '/'})	
 }
 );
+
+app.config(function ($translateProvider) {
+	$translateProvider.translations('en',{
+		title : "Welcome",
+		signIn : "Sign In",
+		subtitle :  "Enter your User Name and Password",
+		username : "UserName",
+		password :  "Password",
+		signUp : "Sign Up",
+		select: "Select Language"
+	});
+	$translateProvider.translations('mk',{
+		title : "Добредојдовте",
+		signIn : "Најавете се",
+		subtitle :  "Внесете го вашето корисничко име и лозинка",
+		username : "Корисничко име",
+		password :  "Лозинка",
+		signUp : "Пријавете се",
+		select: "Изберете јазик"
+	});
+	$translateProvider.preferredLanguage('en');
+});
+
