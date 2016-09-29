@@ -3,6 +3,7 @@ table {
     color: #ffffff;
     border-collapse: collapse;
     width: 100%;
+    background-color: gray;
 }
 
 td, th {
@@ -13,8 +14,10 @@ td, th {
 }
 
 tr:nth-child(even) {
+    color:gray;
     background-color: #dddddd;
     width:100%;
+
 }
 .myText{
 	font-family: arial, sans-serif;

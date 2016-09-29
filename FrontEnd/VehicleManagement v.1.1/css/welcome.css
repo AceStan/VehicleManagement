@@ -6,7 +6,7 @@ div.container {
 header, footer {
     padding: 1em;
     color: white;
-    background-color:#10B9A0;
+    background-color:transparent;
     clear: left;
     text-align: center;
 }
