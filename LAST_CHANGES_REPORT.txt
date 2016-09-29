@@ -1,7 +1,11 @@
-***28.09.2016***
+***29.09.2016***
 
 Show messages using jGrowl,
 
 Delot so internacionalizacija e delumno reshen vo back-end ,delumno vo front end, so edinstvena cel da se pokazhe deka moze i taka i taka.
+
+(Promenata na jazikot na pochetnata strana e na toj nachin shto,dokolku ima pristap do server, se zemaat podatocite od tamu,dodeka ako nema pristap
+do istiot,promenata se vrshi vo fron-end so koristenje na i18n-angular translate. Promena na jazikot vo front-end se pravi samo za pochetnata strana,bidejkji
+dokolku nema pristap do serverot,ne moze ni da se pristapi do drugite strani, a dokolku ima pristap,prevodot se zema od samiot server.)
 
 Vo back-end delot se napraveni samo 2 datoteki, po edna za sekoj jazik.
